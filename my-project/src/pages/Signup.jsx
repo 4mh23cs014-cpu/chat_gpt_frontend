@@ -24,9 +24,18 @@ const Signup = () => {
       });
 
       const data = await response.json();
-      setResult(JSON.stringify(data, null, 2));
+
+      if (response.ok) {
+        setResult("Success: Account created! " + JSON.stringify(data));
+      } else {
+        setResult(`Error (${response.status}): ` + (data.detail || JSON.stringify(data)));
+      }
     } catch (error) {
-      setResult("Error: " + error.message);
+      if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+        setResult("Error: Could not connect to the backend. Please ensure your FastAPI server is running on http://127.0.0.1:8000 and CORS is enabled.");
+      } else {
+        setResult("Error: " + error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -58,9 +67,16 @@ const Signup = () => {
           </button>
         </form>
         {result && (
-          <div style={styles.result}>
-            <strong>Result:</strong>
-            <pre style={styles.pre}>{result}</pre>
+          <div style={{
+            ...styles.result,
+            color: result.startsWith('Success') ? '#28a745' : '#dc3545',
+            backgroundColor: result.startsWith('Success') ? '#e8f5e9' : '#f8d7da',
+            padding: '10px',
+            borderRadius: '4px',
+            border: `1px solid ${result.startsWith('Success') ? '#c3e6cb' : '#f5c6cb'}`
+          }}>
+            <strong>{result.startsWith('Success') ? '✅ ' : '❌ '}</strong>
+            <pre style={{ ...styles.pre, color: 'inherit', background: 'transparent', margin: 0, padding: 0 }}>{result}</pre>
           </div>
         )}
       </div>
