@@ -6,11 +6,11 @@ const header = () => {
     <div>
         <nav style={{ padding: '1rem', backgroundColor: '#333', marginBottom: '1rem' }}>
         <Link to="/" style={{ color: 'white', marginRight: '1rem' }}>Home</Link>
-        <Links to="/about" style={{ color: 'white', marginRight: '1rem' }}>About</Link>
+        <Link to="/about" style={{ color: 'white', marginRight: '1rem' }}>About</Link>
         <Link to="/contact" style={{ color: 'white' }}>Contact</Link>
       </nav>
     </div>
   )
 }
 
-export default header
+export default Header

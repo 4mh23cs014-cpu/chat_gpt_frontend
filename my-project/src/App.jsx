@@ -3,13 +3,13 @@ import './App.css'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/contact'
-import header from './components/header'
-import footer from './components/footer'  
+import Header from './components/Header'
+import Footer from './components/Footer'  
 
 function App() {
   return (
     <Router>
-      <header />  
+      <Header />  
 
 
       <Routes>
@@ -17,7 +17,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-      <footer />  
+      <Footer />  
     </Router>
   )
 }
