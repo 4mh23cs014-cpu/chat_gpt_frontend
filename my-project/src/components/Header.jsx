@@ -16,5 +16,3 @@ const Header = () => {
 }
 
 export default Header
-
-// login sign up needts to be added , logo needs to be added
