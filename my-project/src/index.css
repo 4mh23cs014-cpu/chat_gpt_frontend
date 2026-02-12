@@ -1,91 +1,59 @@
 @import "tailwindcss";
 
-@font-face {
-    font-family: 'Outfit';
-    src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@theme {
+    --color-brand-primary: #2e2b85;
+    --color-brand-secondary: #413fc4;
+    --color-brand-accent: #6366f1;
 }
 
 :root {
-    font-family: 'Outfit', system-ui, sans-serif;
-    line-height: 1.6;
-    font-weight: 400;
-
-    color-scheme: light dark;
-
-    /* Modern Palette */
-    --accent-primary: #6366f1;
-    --accent-secondary: #a855f7;
-    --bg-dark: #0f172a;
-    --bg-light: #f8fafc;
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    background-color: var(--bg-light);
-    color: #1e293b;
-    overflow-x: hidden;
+    @apply text-slate-900 antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--bg-dark);
-        color: #f1f5f9;
+/* Glassmorphism utility */
+.glass {
+    @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+}
+
+/* Animations */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
     }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
+.typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid;
+    animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
 }
 
-::-webkit-scrollbar-track {
-    background: transparent;
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: #6366f1;
+    }
 }
 
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 10px;
+.gradient-bg {
+    background: linear-gradient(135deg, #2e2b85 0%, #413fc4 100%);
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-/* Glassmorphism Utility */
-.glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.dark .glass {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Gradient Text */
-.text-gradient {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Animated Gradient Background */
-.bg-mesh {
-    background-color: var(--bg-light);
-    background-image:
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0, transparent 50%);
-}
-
-.dark .bg-mesh {
-    background-color: var(--bg-dark);
+.modern-card {
+    @apply bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300;
 }
