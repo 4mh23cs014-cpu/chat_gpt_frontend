@@ -9,7 +9,6 @@ const Dashboard = () => {
         navigate('/login');
     };
 
-    // Mock data for the dashboard
     const stats = [
         { name: 'Total Revenue', value: '$45,231.89', change: '+20.1%', icon: '💰' },
         { name: 'Active Users', value: '+2350', change: '+180.1%', icon: '👥' },
@@ -25,82 +24,108 @@ const Dashboard = () => {
     ];
 
     return (
-        <div style={styles.dashboardContainer}>
-            {/* Sidebar Placeholder (integrated into layout) */}
-            <div style={styles.content}>
-                <header style={styles.header}>
-                    <h1 style={styles.title}>Dashboard Overview</h1>
-                    <div style={styles.userProfile}>
-                        <span style={styles.userName}>Welcome back, Admin</span>
-                        <div style={styles.avatar}>A</div>
-                        <button onClick={handleLogout} style={styles.logoutButton}>Logout</button>
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-28 px-6 pb-12">
+            <div className="max-w-7xl mx-auto">
+                <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+                    <div>
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Dashboard Overview</h1>
+                        <p className="text-slate-500 dark:text-slate-400">Welcome back, Admin. Here's what's happening today.</p>
+                    </div>
+                    <div className="flex items-center gap-4 glass p-2 rounded-2xl">
+                        <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg">A</div>
+                        <div className="hidden sm:block">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white leading-none mb-1">Admin User</p>
+                            <p className="text-xs text-slate-500">admin@antigravity.io</p>
+                        </div>
+                        <button
+                            onClick={handleLogout}
+                            className="ml-4 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-rose-500/20 transition-all active:scale-95"
+                        >
+                            Log Out
+                        </button>
                     </div>
                 </header>
 
                 {/* Stats Grid */}
-                <div style={styles.statsGrid}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                     {stats.map((stat, index) => (
-                        <div key={index} style={styles.statCard}>
-                            <div style={styles.statHeader}>
-                                <span style={styles.statIcon}>{stat.icon}</span>
-                                <span style={styles.statName}>{stat.name}</span>
+                        <div key={index} className="glass p-6 rounded-3xl border border-white/10 hover:border-indigo-500/30 transition-all group">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="text-2xl group-hover:scale-125 transition-transform duration-300">{stat.icon}</span>
+                                <span className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{stat.name}</span>
                             </div>
-                            <div style={styles.statValue}>{stat.value}</div>
-                            <div style={styles.statChange}>{stat.change} from last month</div>
+                            <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">{stat.value}</div>
+                            <div className="text-xs font-bold text-emerald-500 flex items-center gap-1">
+                                <span>{stat.change}</span>
+                                <span className="text-slate-400 font-normal">from last month</span>
+                            </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Main Section */}
-                <div style={styles.mainSection}>
-                    <div style={styles.tableCard}>
-                        <h3 style={styles.sectionTitle}>Recent Activity</h3>
-                        <table style={styles.table}>
-                            <thead>
-                                <tr style={styles.tableHeadRow}>
-                                    <th style={styles.th}>User</th>
-                                    <th style={styles.th}>Action</th>
-                                    <th style={styles.th}>Time</th>
-                                    <th style={styles.th}>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {recentActivity.map((activity) => (
-                                    <tr key={activity.id} style={styles.tableRow}>
-                                        <td style={styles.td}>{activity.user}</td>
-                                        <td style={styles.td}>{activity.action}</td>
-                                        <td style={styles.td}>{activity.time}</td>
-                                        <td style={styles.td}>
-                                            <span style={{
-                                                ...styles.statusBadge,
-                                                backgroundColor: activity.status === 'Success' ? '#e6fffa' : '#fff5f5',
-                                                color: activity.status === 'Success' ? '#2c7a7b' : '#c53030'
-                                            }}>
-                                                {activity.status}
-                                            </span>
-                                        </td>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {/* Activity Table */}
+                    <div className="lg:col-span-2 glass rounded-3xl overflow-hidden border border-white/10">
+                        <div className="p-6 border-b border-white/10 flex justify-between items-center">
+                            <h3 className="font-bold text-slate-900 dark:text-white">Recent Activity</h3>
+                            <button className="text-xs font-bold text-indigo-500 hover:underline">View All</button>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="bg-slate-100/50 dark:bg-white/5">
+                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">User</th>
+                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Action</th>
+                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Time</th>
+                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {recentActivity.map((activity) => (
+                                        <tr key={activity.id} className="hover:bg-indigo-500/5 transition-colors">
+                                            <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">{activity.user}</td>
+                                            <td className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">{activity.action}</td>
+                                            <td className="px-6 py-4 text-sm text-slate-500">{activity.time}</td>
+                                            <td className="px-6 py-4">
+                                                <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${activity.status === 'Success'
+                                                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
+                                                        : 'bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400'
+                                                    }`}>
+                                                    {activity.status}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <div style={styles.infoCard}>
-                        <h3 style={styles.sectionTitle}>System Status</h3>
-                        <div style={styles.systemStatus}>
-                            <div style={styles.statusItem}>
-                                <span>API Server</span>
-                                <span style={styles.onlineDot}>Online</span>
-                            </div>
-                            <div style={styles.statusItem}>
-                                <span>Database</span>
-                                <span style={styles.onlineDot}>Online</span>
-                            </div>
-                            <div style={styles.statusItem}>
-                                <span>Storage</span>
-                                <span style={styles.onlineDot}>Online</span>
-                            </div>
+                    {/* System Status */}
+                    <div className="glass p-6 rounded-3xl border border-white/10 flex flex-col">
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-6">System Status</h3>
+                        <div className="space-y-6 flex-1">
+                            {[
+                                { name: 'API Server', uptime: '99.9%', status: 'Online' },
+                                { name: 'Database', uptime: '100%', status: 'Online' },
+                                { name: 'Cloud Storage', uptime: '98.5%', status: 'Online' },
+                                { name: 'CDN Edge', uptime: '100%', status: 'Online' }
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5">
+                                    <div>
+                                        <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">{item.name}</p>
+                                        <p className="text-[10px] text-slate-500">Uptime: {item.uptime}</p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                                        <span className="text-[10px] font-bold text-emerald-500 uppercase">{item.status}</span>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                        <button className="mt-8 w-full py-4 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-500 text-sm font-bold rounded-2xl transition-all">
+                            Check Details
+                        </button>
                     </div>
                 </div>
             </div>
@@ -108,172 +133,5 @@ const Dashboard = () => {
     );
 };
 
-const styles = {
-    dashboardContainer: {
-        minHeight: '100vh',
-        backgroundColor: '#f8fafc',
-        fontFamily: "'Inter', sans-serif",
-        padding: '24px',
-    },
-    content: {
-        maxWidth: '1200px',
-        margin: '0 auto',
-    },
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '32px',
-    },
-    title: {
-        fontSize: '24px',
-        fontWeight: '700',
-        color: '#1e293b',
-        margin: 0,
-    },
-    userProfile: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-    },
-    userName: {
-        color: '#64748b',
-        fontSize: '14px',
-    },
-    avatar: {
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        backgroundColor: '#6366f1',
-        color: 'white',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 'Bold',
-    },
-    logoutButton: {
-        backgroundColor: '#ef4444',
-        color: 'white',
-        border: 'none',
-        padding: '8px 16px',
-        borderRadius: '8px',
-        fontSize: '14px',
-        fontWeight: '600',
-        cursor: 'pointer',
-        transition: 'background-color 0.2s',
-        marginLeft: '12px',
-    },
-    statsGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        gap: '24px',
-        marginBottom: '32px',
-    },
-    statCard: {
-        background: 'white',
-        padding: '24px',
-        borderRadius: '16px',
-        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-        border: '1px solid #f1f5f9',
-    },
-    statHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        marginBottom: '12px',
-    },
-    statIcon: {
-        fontSize: '20px',
-    },
-    statName: {
-        fontSize: '14px',
-        color: '#64748b',
-        fontWeight: '500',
-    },
-    statValue: {
-        fontSize: '28px',
-        fontWeight: '700',
-        color: '#0f172a',
-        marginBottom: '4px',
-    },
-    statChange: {
-        fontSize: '12px',
-        color: '#10b981',
-        fontWeight: '600',
-    },
-    mainSection: {
-        display: 'grid',
-        gridTemplateColumns: '3fr 1fr',
-        gap: '24px',
-    },
-    tableCard: {
-        background: 'white',
-        padding: '24px',
-        borderRadius: '16px',
-        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-        border: '1px solid #f1f5f9',
-    },
-    infoCard: {
-        background: 'white',
-        padding: '24px',
-        borderRadius: '16px',
-        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-        border: '1px solid #f1f5f9',
-    },
-    sectionTitle: {
-        fontSize: '18px',
-        fontWeight: '600',
-        color: '#1e293b',
-        marginBottom: '20px',
-        marginTop: 0,
-    },
-    table: {
-        width: '100%',
-        borderCollapse: 'collapse',
-    },
-    tableHeadRow: {
-        borderBottom: '1px solid #f1f5f9',
-    },
-    th: {
-        textAlign: 'left',
-        padding: '12px',
-        fontSize: '13px',
-        color: '#64748b',
-        fontWeight: '600',
-        textTransform: 'uppercase',
-    },
-    tableRow: {
-        borderBottom: '1px solid #f1f5f9',
-    },
-    td: {
-        padding: '16px 12px',
-        fontSize: '14px',
-        color: '#334155',
-    },
-    statusBadge: {
-        padding: '4px 8px',
-        borderRadius: '6px',
-        fontSize: '12px',
-        fontWeight: '600',
-    },
-    systemStatus: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-    },
-    statusItem: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: '14px',
-        color: '#475569',
-    },
-    onlineDot: {
-        color: '#10b981',
-        fontWeight: '600',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px',
-    },
-};
-
 export default Dashboard;
+
